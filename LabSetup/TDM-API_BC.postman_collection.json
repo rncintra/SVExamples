@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "adebc682-2614-419d-bb64-6b844870c629",
+		"name": "TDM-API_BC",
+		"description": "Collection Use APIs to Prepare Test Data for RR Pairs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TestDataManager/user/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "293726a5-9f10-412f-814b-7df2728bc448",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", \"Bearer \" + jsonData.token);",
+							"postman.setEnvironmentVariable(\"tdmAuthorization\", \"Bearer \" + jsonData.token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmBasicAuth}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TestDataManager/user/login",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TestDataManager",
+						"user",
+						"login"
+					]
+				},
+				"description": "TDM User login"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Get Connection Profiles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMConnectionProfileService/api/ca/v1/connectionProfiles",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMConnectionProfileService",
+						"api",
+						"ca",
+						"v1",
+						"connectionProfiles"
+					]
+				},
+				"description": "List connection profiles"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Create a Connection Profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\t\"name\":\"{{connName}}\",\r\n\t\t\t\"description\":\"{{connName}}\",\r\n\t\t\t\"dbType\":\"{{connDBType}}\",\r\n\t\t\t\"server\":\"{{connDBServer}}\",\r\n\t\t\t\"port\":\"{{connDBPort}}\",\r\n\t\t\t\"instance\":\"{{connDBInstance}}\",\r\n\t\t\t\"service\":\"\",\r\n\t\t\t\"database\":\"{{connDB}}\",\r\n\t\t\t\"schema\":\"\",\r\n\t\t\t\"username\":\"{{connDBUserName}}\",\r\n\t\t\t\"password\":\"{{connDBPass}}\"\r\n\t\t\t }"
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMConnectionProfileService/api/ca/v1/connectionProfiles",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMConnectionProfileService",
+						"api",
+						"ca",
+						"v1",
+						"connectionProfiles"
+					]
+				},
+				"description": "List connection profiles"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Get Connection Profiles by Name",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMConnectionProfileService/api/ca/v1/connectionProfiles/{{connName}}",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMConnectionProfileService",
+						"api",
+						"ca",
+						"v1",
+						"connectionProfiles",
+						"{{connName}}"
+					]
+				},
+				"description": "List connection profiles"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Create a Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bbf759a-fb01-4238-8613-74d3f9501307",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmProjID\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{projName}}\",\r\n  \"description\": \"{{projDesc}}\",\r\n  \"dateOrder\": \"YMD\",\r\n  \"inheritTables\": true,\r\n  \"timestampPrecision\": 3,\r\n  \"type\": \"DB\",\r\n  \"levels\": [\r\n    {\r\n      \"level\": 1,\r\n      \"created\": \"\",\r\n      \"updated\": \"\",\r\n      \"hasData\": \"0\",\r\n      \"keyOrder\": \"NAME\",\r\n      \"name\": \"Data Group\",\r\n      \"publish\": \"0\"\r\n    },\r\n    {\r\n      \"level\": 2,\r\n      \"created\": \"\",\r\n      \"updated\": \"\",\r\n      \"hasData\": \"0\",\r\n      \"keyOrder\": \"NAME\",\r\n      \"name\": \"Data Set\",\r\n      \"publish\": \"0\"\r\n    },\r\n    {\r\n      \"level\": 3,\r\n      \"created\": \"\",\r\n      \"updated\": \"\",\r\n      \"hasData\": \"1\",\r\n      \"keyOrder\": \"NAME\",\r\n      \"name\": \"Data Pool\",\r\n      \"publish\": \"1\"\r\n    }\r\n  ],\r\n  \"created\": null,\r\n  \"updated\": null,\r\n  \"versions\": [],\r\n  \"grantedFunctions\": [\r\n    \"Admin\"\r\n  ]\r\n}\t\r\n"
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMProjectService/api/ca/v1/projects",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMProjectService",
+						"api",
+						"ca",
+						"v1",
+						"projects"
+					]
+				},
+				"description": "Use this interface to create a new project.\n\n/api/ca/v1/projects\n\nrequest body:\n{\n  \"created\": \"string\",\n  \"dateOrder\": \"string\",\n  \"description\": \"string\",\n  \"grantedFunctions\": [\n    \"string\"\n  ],\n  \"id\": 0,\n  \"inheritTables\": true,\n  \"levels\": [\n    {\n      \"created\": \"string\",\n      \"hasData\": \"string\",\n      \"keyOrder\": \"string\",\n      \"level\": 0,\n      \"name\": \"string\",\n      \"publish\": \"string\",\n      \"updated\": \"string\"\n    }\n  ],\n  \"name\": \"string\",\n  \"timestampPrecision\": 0,\n  \"type\": \"string\",\n  \"updated\": \"string\",\n  \"versions\": [\n    {\n      \"created\": \"string\",\n      \"description\": \"string\",\n      \"id\": 0,\n      \"levelDetails\": [\n        {\n          \"level\": 0,\n          \"levelCount\": 0,\n          \"levelName\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"projectName\": \"string\",\n      \"registeredObjectCount\": 0,\n      \"tablesUsed\": [\n        \"string\"\n      ]\n    }\n  ]\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Create a Create a Project Version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d815b4db-5054-4627-b265-cd691be28582",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmProjVerID\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"{{projVerDesc}}\",\r\n  \"levelDetails\": [\r\n    {\r\n      \"level\": 1,\r\n      \"levelName\": \"Data Group\",\r\n      \"levelCount\": 1\r\n    },\r\n    {\r\n      \"level\": 2,\r\n      \"levelName\": \"Data Set\",\r\n      \"levelCount\": 2\r\n    },\r\n    {\r\n      \"level\": 3,\r\n      \"levelName\": \"Data Pool\",\r\n      \"levelCount\": 4\r\n    }\r\n  ],\r\n  \"name\": \"{{projVerName}}\",\r\n  \"projectName\": \"{{projName}}\",\r\n  \"registeredObjectCount\": 0,\r\n  \"tablesUsed\": []\r\n}"
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMProjectService/api/ca/v1/projects/{{tdmProjID}}/versions",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMProjectService",
+						"api",
+						"ca",
+						"v1",
+						"projects",
+						"{{tdmProjID}}",
+						"versions"
+					]
+				},
+				"description": "Use this interface to create versions in a project\n\nhttps://{{URL}}:{{Port}}/TDMProjectService/api/ca/v1/projects/{{projectId}}/versions"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Register RRPair Objects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9827ed10-af76-4509-86fb-93add81bfa51",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmObjID\", jsonData.objectId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "{\"objectName\": \"{{tdmObjName}}\",\"objectType\": \"RRPAIR\",\"fileEncoding\": \"UTF-8\"}",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "request",
+							"contentType": "text/plain",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "response",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMModelService/api/ca/v1/objects?projectId={{tdmProjID}}&versionId={{tdmProjVerID}}",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMModelService",
+						"api",
+						"ca",
+						"v1",
+						"objects"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{tdmProjID}}"
+						},
+						{
+							"key": "versionId",
+							"value": "{{tdmProjVerID}}"
+						}
+					]
+				},
+				"description": "Register RRPair Objects"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Create a Data Generator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9a8c7d6-a59b-4826-bb68-c7160f122163",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmGenID\", jsonData.generatorId);",
+							"postman.setEnvironmentVariable(\"tdmGenParentID\", jsonData.parentId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"description\": \"{{tdmGenName}}\",\r\n\"name\": \"{{tdmGenDesc}}\",\r\n\"projectId\": {{tdmProjID}},\r\n\"projectName\": \"{{projName}}\",\r\n\"versionId\": {{tdmProjVerID}},\r\n\"versionName\": \"{{projVerName}}\",\r\n\"onDemand\": \"Y\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMGeneratorService/api/ca/v1/generators?projectId={{tdmProjID}}&versionId={{tdmProjVerID}}",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMGeneratorService",
+						"api",
+						"ca",
+						"v1",
+						"generators"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{tdmProjID}}"
+						},
+						{
+							"key": "versionId",
+							"value": "{{tdmProjVerID}}"
+						}
+					]
+				},
+				"description": "Create a Data Generator"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Create and Register Derived Objects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9827ed10-af76-4509-86fb-93add81bfa51",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmObjJobID\", jsonData.jobId);",
+							"postman.setEnvironmentVariable(\"tdmSchemaName\", jsonData.tableOwner);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMModelService/api/ca/v1/objects/{{tdmObjID}}/actions/derive?projectId={{tdmProjID}}&versionId={{tdmProjVerID}}&generateForiegnKeys=true&importObjectData=true&documentGroupId=DG1&rrPairLinkId=RR1&tablePrefix=td1_&profileName={{connName}}&async=true",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMModelService",
+						"api",
+						"ca",
+						"v1",
+						"objects",
+						"{{tdmObjID}}",
+						"actions",
+						"derive"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{tdmProjID}}"
+						},
+						{
+							"key": "versionId",
+							"value": "{{tdmProjVerID}}"
+						},
+						{
+							"key": "generateForiegnKeys",
+							"value": "true"
+						},
+						{
+							"key": "importObjectData",
+							"value": "true"
+						},
+						{
+							"key": "documentGroupId",
+							"value": "DG1"
+						},
+						{
+							"key": "rrPairLinkId",
+							"value": "RR1"
+						},
+						{
+							"key": "tablePrefix",
+							"value": "td1_"
+						},
+						{
+							"key": "profileName",
+							"value": "{{connName}}"
+						},
+						{
+							"key": "async",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Register RRPair Objects"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Get the Status of the Submitted Job Derived Object",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9827ed10-af76-4509-86fb-93add81bfa51",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tdmObjJobStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMJobService/api/ca/v1/jobs/{{tdmObjJobID}}",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMJobService",
+						"api",
+						"ca",
+						"v1",
+						"jobs",
+						"{{tdmObjJobID}}"
+					]
+				},
+				"description": "Register RRPair Objects"
+			},
+			"response": []
+		},
+		{
+			"name": "TDM Get the List of Derived Objects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9827ed10-af76-4509-86fb-93add81bfa51",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMModelService/api/ca/v1/objects/{{tdmObjID}}/derivedObjects?projectId={{tdmProjID}}&versionId={{tdmProjVerID}}",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMModelService",
+						"api",
+						"ca",
+						"v1",
+						"objects",
+						"{{tdmObjID}}",
+						"derivedObjects"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{tdmProjID}}"
+						},
+						{
+							"key": "versionId",
+							"value": "{{tdmProjVerID}}"
+						}
+					]
+				},
+				"description": "Register RRPair Objects"
+			},
+			"response": []
+		}
+	]
+}

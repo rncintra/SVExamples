@@ -1,0 +1,1367 @@
+{
+	"info": {
+		"_postman_id": "f8f9ac5a-888f-42e7-939c-bc7db9ec5fd5",
+		"name": "SV API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get VSEs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd07467d-6b21-4bd6-bee7-a0ecea49cf29",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"//postman.setEnvironmentVariable(\"vseID\", jsonData._embedded.vses[0].vseId);",
+							"var jsonData = JSON.parse(responseBody);",
+							"//postman.setEnvironmentVariable(\"tdmProjID\", jsonData.id);",
+							"//postman.setEnvironmentVariable(\"vseID\", jsonData.count);",
+							"",
+							"pm.environment.set(\"vseID\", jsonData.count);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get VSE Services",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.89.148:1505/lisa-virtualize-invoke/api/v2/vses/puosrailMQ5wi_7CUP3twJ4Gm_Sv4ESjZP05tsM/services",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"89",
+						"148"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"puosrailMQ5wi_7CUP3twJ4Gm_Sv4ESjZP05tsM",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Builder Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"sessionId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": "base 64 admin admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"{{serviceName}}\",\"description\":\"{{serviceDesc}}\"}"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction Bundle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"bundleId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Create InputContainer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"inputContainerId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles/{{bundleId}}/inputContainers",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles",
+						"{{bundleId}}",
+						"inputContainers"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger File Load accounts to InputContainer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}//bundles/{{bundleId}}/inputContainers/{{inputContainerId}}/contents",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"",
+						"bundles",
+						"{{bundleId}}",
+						"inputContainers",
+						"{{inputContainerId}}",
+						"contents"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Load RRPair Files for Specific Responses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file1",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "file2",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "file3",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "file4",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "file5",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "file6",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}//bundles/{{bundleId}}/inputContainers/{{inputContainerId}}/contents",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"",
+						"bundles",
+						"{{bundleId}}",
+						"inputContainers",
+						"{{inputContainerId}}",
+						"contents"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transport Protocol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"tpId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"typeId\": \"{{tPtypeId}}\", \"basePath\": \"{{tPbasePath}}\", \"useGateway\": true, \"hostHeaderPassThrough\": false, \"recordingEndpoint\": {\"host\": \"{{tPrecordingEndpointHost}}\", \"port\": \"{{tPrecordingEndpointPort}}\"}, \"targetEndpoint\": {\"host\": \"{{tPtargetEndpointHost}}\", \"port\": \"{{tPtargetEndpointPort}}\"}} "
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}/transportProtocols",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}",
+						"transportProtocols"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Process Data InputContainer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"processorId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"container\": \"{{inputContainerId}}\" }"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles/{{bundleId}}/inputProcessors",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles",
+						"{{bundleId}}",
+						"inputProcessors"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Process Data InputContainer Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"pm.environment.set(\"processorStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles/{{bundleId}}/inputProcessors/{{processorId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles",
+						"{{bundleId}}",
+						"inputProcessors",
+						"{{processorId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Input Processor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles/{{bundleId}}/inputProcessors/{{processorId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles",
+						"{{bundleId}}",
+						"inputProcessors",
+						"{{processorId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Input Container",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundles/{{bundleId}}/inputContainers/{{inputContainerId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundles",
+						"{{bundleId}}",
+						"inputContainers",
+						"{{inputContainerId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Bundle Processor'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"BundleProcId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"sessionId\": \"{{sessionId}}\", \"bundleId\": \"{{bundleId}}\" }"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundleProcessors",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundleProcessors"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bundle Processor Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"pm.environment.set(\"BundleProcStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundleProcessors/{{BundleProcId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundleProcessors",
+						"{{BundleProcId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Bundle Processor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/bundleProcessors/{{BundleProcId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"bundleProcessors",
+						"{{BundleProcId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data Protocols",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"dpId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}/transportProtocols/{{tpId}}/dataProtocols",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}",
+						"transportProtocols",
+						"{{tpId}}",
+						"dataProtocols"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Data Protocol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"dpId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"forRequest\": true, \"typeId\": \"RESTDPH\" ,\"rules\": [], \"userConfigured\":false  }"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}/transportProtocols/{{tpId}}/dataProtocols",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}",
+						"transportProtocols",
+						"{{tpId}}",
+						"dataProtocols"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Builder sessions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"dpId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"forRequest\": true, \"typeId\": \"RESTDPH\" ,\"rules\": [], \"userConfigured\":false  }"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Create VS MAR File click Send and Download",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/zip",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"forRequest\": true, \"typeId\": \"RESTDPH\" ,\"rules\": [], \"userConfigured\":false  }"
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}?outputFile=C:\\temp\\TDM_Generate_Demo\\swagger04.mar",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}"
+					],
+					"query": [
+						{
+							"key": "outputFile",
+							"value": "C:\\temp\\TDM_Generate_Demo\\swagger04.mar"
+						}
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Deploy MAR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/api/Dcm/VSEs/{{vseName}}/actions/deployMar",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"api",
+						"Dcm",
+						"VSEs",
+						"{{vseName}}",
+						"actions",
+						"deployMar"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Transport Protocol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}/transportProtocols/{{tpId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}",
+						"transportProtocols",
+						"{{tpId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Builder Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33648a6-08db-4266-acf1-c84f39762e02",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"//pm.environment.set(\"processorId\", jsonData.id);",
+							"//pm.environment.set(\"processorStatus\", jsonData.status);",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "base 64 admin admin",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:1505/lisa-virtualize-invoke/api/v2/vses/{{vseID}}/vsBuilderSessions/{{sessionId}}",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "1505",
+					"path": [
+						"lisa-virtualize-invoke",
+						"api",
+						"v2",
+						"vses",
+						"{{vseID}}",
+						"vsBuilderSessions",
+						"{{sessionId}}"
+					]
+				},
+				"description": "Create Builder Session"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3308ca76-ce45-4a0e-9584-53dcaa41ab2f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d28fd04f-b002-4737-858d-e5b350e9d7b6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

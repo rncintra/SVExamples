@@ -1,0 +1,11 @@
+Variables
+Name, Value, Scope, Resolve, Prior
+account_num, @randrange(100000,999999)@, Version, false
+AmountLoan, @randrange(100,20000)@.00, Version, false
+Credit_score, @randrange(350,800)@, Version, false
+
+Generator Values
+~account_num~	~AmountLoan~	~Credit_score~
+
+^td1__Request_ROOT.account_id(1)^	^td1__Request_ROOT.amount(1)^
+
