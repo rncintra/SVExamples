@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "ce0000de-73fc-43ef-b805-73856a6c7bce",
+		"name": "TDM Export to VS Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TDM Export to VS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tdmAuthorization}}",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-store",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{tdmURL}}:{{tdmPort}}/TDMModelService/api/ca/v1/objects/{{tdmObjID}}/actions/export?async=true&baseFileName=CATDMShredder&dataEncoding=UTF-8&documentGroupId=Good1&escapeNonASCII=false&exportIntoMultipleFiles=true&generatorId=&honorUnqualifiedForms=true&includeStandaloneAttribute=false&includeXmlDeclaration=true&noOfFiles=&prettyPrintJSON=true&profileName={{connName}}&projectId={{tdmProjID}}&publishFiles=false&quoteFieldNames=true&quoteNonNumerics=true&requireDataIndentation=true&rrPairLinkId=&schemaName={{tdmSchemaName}}&updateVirtualService=true&versionId={{tdmProjVerID}}&virtualService=CreditRepWSDL02&virtualServiceEnvironment={{vsVSE}}&writeNumbersAsStrings=false",
+					"protocol": "https",
+					"host": [
+						"{{tdmURL}}"
+					],
+					"port": "{{tdmPort}}",
+					"path": [
+						"TDMModelService",
+						"api",
+						"ca",
+						"v1",
+						"objects",
+						"{{tdmObjID}}",
+						"actions",
+						"export"
+					],
+					"query": [
+						{
+							"key": "async",
+							"value": "true"
+						},
+						{
+							"key": "baseFileName",
+							"value": "CATDMShredder"
+						},
+						{
+							"key": "dataEncoding",
+							"value": "UTF-8"
+						},
+						{
+							"key": "documentGroupId",
+							"value": "Good1"
+						},
+						{
+							"key": "escapeNonASCII",
+							"value": "false"
+						},
+						{
+							"key": "exportIntoMultipleFiles",
+							"value": "true"
+						},
+						{
+							"key": "generatorId",
+							"value": ""
+						},
+						{
+							"key": "honorUnqualifiedForms",
+							"value": "true"
+						},
+						{
+							"key": "includeStandaloneAttribute",
+							"value": "false"
+						},
+						{
+							"key": "includeXmlDeclaration",
+							"value": "true"
+						},
+						{
+							"key": "noOfFiles",
+							"value": ""
+						},
+						{
+							"key": "prettyPrintJSON",
+							"value": "true"
+						},
+						{
+							"key": "profileName",
+							"value": "{{connName}}"
+						},
+						{
+							"key": "projectId",
+							"value": "{{tdmProjID}}"
+						},
+						{
+							"key": "publishFiles",
+							"value": "false"
+						},
+						{
+							"key": "quoteFieldNames",
+							"value": "true"
+						},
+						{
+							"key": "quoteNonNumerics",
+							"value": "true"
+						},
+						{
+							"key": "requireDataIndentation",
+							"value": "true"
+						},
+						{
+							"key": "rrPairLinkId",
+							"value": ""
+						},
+						{
+							"key": "schemaName",
+							"value": "{{tdmSchemaName}}"
+						},
+						{
+							"key": "updateVirtualService",
+							"value": "true"
+						},
+						{
+							"key": "versionId",
+							"value": "{{tdmProjVerID}}"
+						},
+						{
+							"key": "virtualService",
+							"value": "CreditRepWSDL02"
+						},
+						{
+							"key": "virtualServiceEnvironment",
+							"value": "{{vsVSE}}"
+						},
+						{
+							"key": "writeNumbersAsStrings",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6542d110-085a-44ae-93cb-0700d4372784",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a8bafc97-5326-41f2-98da-9803ca7950bc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "5ee34393-0e6b-4991-a2cc-860a15c0eea6",
+			"key": "connName",
+			"value": "TDM_Demo",
+			"type": "string"
+		}
+	]
+}
