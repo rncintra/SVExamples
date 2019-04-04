@@ -70,8 +70,8 @@ def myCredentialID = '5aec06db-b61e-4df4-a949-673793a6f5c6'
        // clean
        //sh(script: 'git clean -fdx')
        // Git Project downloaded to workspace
-       //git 'https://github.com/milka12/DT_Automation01'
-        git credentialsId: 'dd8dade7-879b-45c1-ac63-b1972f3a6a62', url: 'https://github.com/milka12/DT_Automation01'
+       //git 'https://github.com/milka12/BC2019'
+        git credentialsId: 'dd8dade7-879b-45c1-ac63-b1972f3a6a62', url: 'https://github.com/milka12/BC2019'
         
    }
    

@@ -26,7 +26,7 @@ node {
        // clean the workspace
        //bat 'git clean -fdx'
        // Git Project downloaded to workspace
-       git 'https://github.com/milka12/DT_VS_Test_RR_01'
+       git 'https://github.com/milka12/BC2019'
    }
    
    stage('Deploy Virtual Service') {
