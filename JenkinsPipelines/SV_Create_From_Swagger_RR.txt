@@ -6,13 +6,13 @@ node {
 
 	def TestServer2 = 'Linux104'
 	def devTestServer = 'Linux104'
-	//devTestServer = 'DTServer2'
-//	TestServer2 = 'DTServer2'
+	devTestServer = 'localhost'
+	TestServer2 = 'localhost'
 	
 	def vseServer = 'VSE'
-	vseServer = 'VSED2'
+	//vseServer = 'VSED2'
 	
-	def serviceName = 'SWAGGER_RR_04'
+	def serviceName = 'SWAGGER_Risk'
 	
 	def serviceDesc = 'Service From SWAGGER and RR Pairs'
 	
@@ -45,7 +45,7 @@ node {
 
 // This is the credential ID stored in each Jenkins instance 
 // You will need to change this to your Credential ID
-def myCredentialID = '5aec06db-b61e-4df4-a949-673793a6f5c6'
+def myCredentialID = 'be6bcb71-bb37-40b7-b6de-bb2e7d951297'
 
 
 // Variables used by multiple Stages Set here so they are in the scope for the node
@@ -403,7 +403,7 @@ def myCredentialID = '5aec06db-b61e-4df4-a949-673793a6f5c6'
        def zipFile = """${serviceName}.zip"""
     //   def marFile =  """${serviceName}.mar"""
       // Deploy VS using  Jenkins Plugin
-	  svDeployVirtualService host: """${devTestServer}""", marFilesPaths: """${marFile}""", port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vseName: """${vseServer}"""
+	  svDeployVirtualService host: """${devTestServer}""", marFilesPaths: """${marFile}""", port: '1505', secured: false, tokenCredentialId: """${myCredentialID}""", useCustomRegistry: true, vseName: """${vseServer}"""
 		// Deploy using REST API
 		/*
 		if (isUnix()){
@@ -472,14 +472,6 @@ stage ("Demo Wait time") {
 
  }
 
- stage('Store Mar File in Github') {
-
-withCredentials([usernamePassword(credentialsId: 'dd8dade7-879b-45c1-ac63-b1972f3a6a62', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-    bat 'git add .'
-    //bat 'git tag -a some_tag3 -m "Jenkins"'
-    bat 'git commit -am  "Updated master'
-    bat  """git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/milka12/DT_Automation01 """
-}
     
 
      

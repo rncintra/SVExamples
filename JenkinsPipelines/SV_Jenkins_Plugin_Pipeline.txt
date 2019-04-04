@@ -12,15 +12,20 @@ node {
     
        def vseID = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
     
-	def devTestServer = 'DTServer2'
-	devTestServer = 'Linux104'
+	def devTestServer = 'localhost'
+	devTestServer = 'localhost'
 
 	def vseServer = 'VSE'
-	vseServer = 'VSED2'
+	//vseServer = 'VSED2'
 	def marFile = 'VirtualServices/cars-rest.mar'
 	def vsName = 'cars-rest'
 	def testFile = 'Tests/cars-baseline-rest-test.mar'
 	def sleepTime = '20'
+	
+	
+// This is the credential ID stored in each Jenkins instance 
+// You will need to change this to your Credential ID
+def myCredentialID = 'be6bcb71-bb37-40b7-b6de-bb2e7d951297'
     
   stage('Retreive Project from Github') {
        // clean the workspace
@@ -31,13 +36,13 @@ node {
    
    stage('Deploy Virtual Service') {
           
-            svDeployVirtualService host: """${devTestServer}""", marFilesPaths: """${marFile}""", port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vseName: """${vseServer}"""
+            svDeployVirtualService host: """${devTestServer}""", marFilesPaths: """${marFile}""", port: '1505', secured: false, tokenCredentialId: """${myCredentialID}""", useCustomRegistry: true, vseName: """${vseServer}"""
 
    }
    
    stage('Deploy and Run Test') {
            
-        svDeployTest host: """${devTestServer}""", marFilePath: """${testFile}""", port: '1505', secured: false, testType: 'tests', tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true
+        svDeployTest host: """${devTestServer}""", marFilePath: """${testFile}""", port: '1505', secured: false, testType: 'tests', tokenCredentialId: """${myCredentialID}""", useCustomRegistry: true
    }
    
     
@@ -48,12 +53,12 @@ stage ("wait_for_test") {
 
   stage('Stop Virtual Service') {
            
-          svStopVirtualService host: """${devTestServer}""", port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
+          svStopVirtualService host: """${devTestServer}""", port: '1505', secured: false, tokenCredentialId: """${myCredentialID}""", useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
    }
    
     stage('Undeploy Virtual Service') {
            
-          svUndeployVirtualService  host: """${devTestServer}""",  port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
+          svUndeployVirtualService  host: """${devTestServer}""",  port: '1505', secured: false, tokenCredentialId: """${myCredentialID}""", useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
    }
 
 stage ("Publish Test reports") {
