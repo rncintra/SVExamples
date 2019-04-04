@@ -1,0 +1,4 @@
+account_id,amount,credit_score,reason,decision,message
+"12345","200.00","780","APPROVAL",true,
+"54321","20000.00","380","PROBABLE_FRAUD",false,
+"67890","7.00","380","",,"Lookup error"

@@ -1,0 +1,2 @@
+account_id,amount,credit_score,reason,decision,message
+"12345","200.00","780","APPROVAL",true,
