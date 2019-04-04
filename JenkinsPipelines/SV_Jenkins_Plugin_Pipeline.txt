@@ -1,0 +1,65 @@
+/*
+CA SV Plugin Pipeline Demo
+Retrieve Virtual Service MAR File from Git
+Deploy Virtual Service
+Deploy/Run Test
+Stop Virtual Service
+UnDeploy Virtual Service
+*/
+node {
+    
+    def VEID = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+    
+       def vseID = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+    
+	def devTestServer = 'DTServer2'
+	devTestServer = 'Linux104'
+
+	def vseServer = 'VSE'
+	vseServer = 'VSED2'
+	def marFile = 'VirtualServices/cars-rest.mar'
+	def vsName = 'cars-rest'
+	def testFile = 'Tests/cars-baseline-rest-test.mar'
+	def sleepTime = '20'
+    
+  stage('Retreive Project from Github') {
+       // clean the workspace
+       //bat 'git clean -fdx'
+       // Git Project downloaded to workspace
+       git 'https://github.com/milka12/DT_VS_Test_RR_01'
+   }
+   
+   stage('Deploy Virtual Service') {
+          
+            svDeployVirtualService host: """${devTestServer}""", marFilesPaths: """${marFile}""", port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vseName: """${vseServer}"""
+
+   }
+   
+   stage('Deploy and Run Test') {
+           
+        svDeployTest host: """${devTestServer}""", marFilePath: """${testFile}""", port: '1505', secured: false, testType: 'tests', tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true
+   }
+   
+    
+stage ("wait_for_test") {
+    echo """Waiting ${sleepTime} seconds for deployment to complete prior starting smoke testing"""
+    sleep sleepTime.toInteger() // seconds
+}
+
+  stage('Stop Virtual Service') {
+           
+          svStopVirtualService host: """${devTestServer}""", port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
+   }
+   
+    stage('Undeploy Virtual Service') {
+           
+          svUndeployVirtualService  host: """${devTestServer}""",  port: '1505', secured: false, tokenCredentialId: '5aec06db-b61e-4df4-a949-673793a6f5c6', useCustomRegistry: true, vsNames: """${vsName}""", vseName: """${vseServer}"""
+   }
+
+stage ("Publish Test reports") {
+svPublishTestReport()
+    
+}
+   
+
+}
